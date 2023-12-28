@@ -6,10 +6,10 @@ import throttle from 'lodash.throttle';
 const playerRef = document.querySelector('#vimeo-player');
 
 //Constants
-const localStorageName = 'videoplayer-current-time';
+const localStorageKey = 'videoplayer-current-time';
 
 //Check local storage
-const savedTime = Number(localStorage.getItem(localStorageName));
+const savedTime = Number(localStorage.getItem(localStorageKey));
 
 //New Player
 const player = new Vimeo(playerRef);
@@ -19,7 +19,7 @@ if (savedTime) player.setCurrentTime(savedTime);
 
 //Time handler
 const handleTime = ({ seconds }) => {
-  localStorage.setItem(localStorageName, seconds);
+  localStorage.setItem(localStorageKey, seconds);
 };
 
 // Check event when player play video
