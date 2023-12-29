@@ -10,19 +10,21 @@ const baseFormState = { email: '', message: '' };
 
 // Set data to local storage
 const setLocalStorageData = data => {
-  let json = '';
-  try {
-    json = JSON.stringify(data);
-  } catch (error) {
-    console.log(error.message);
-    return;
-  }
+  const json = JSON.stringify(data);
   localStorage.setItem(localStorageKey, json);
 };
 
 //Get data from local storage
-const getLocalStorageData = () =>
-  JSON.parse(localStorage.getItem(localStorageKey));
+const getLocalStorageData = () => {
+  let result = '';
+  try {
+    result = JSON.parse(localStorage.getItem(localStorageKey));
+  } catch (error) {
+    console.log(error.message);
+    return;
+  }
+  return result;
+};
 
 // Handler for input event
 const handleInput = ({ target: { name, value } }) => {
@@ -58,5 +60,5 @@ const formState = firstData
 Object.keys(formState).forEach(el => (formRef[el].value = formState[el]));
 
 // Event listeners
-formRef.addEventListener('input', throttle(handleInput, 500));
+formRef.addEventListener('input', throttle(handleInput, 1500));
 formRef.addEventListener('submit', handleSubmit);
