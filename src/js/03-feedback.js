@@ -39,11 +39,9 @@ const handleSubmit = e => {
   //current formState
   console.log(formState);
   // clear input
-  [...e.target.elements].forEach(
-    el => el.nodeName !== 'BUTTON' && (el.value = '')
-  );
+  formRef.reset();
   //Clear localStorage
-  setLocalStorageData(baseFormState);
+  localStorage.removeItem(localStorageKey);
   //Clear Form State
   Object.keys(formState).forEach(el => (formState[el] = ''));
 };
@@ -52,9 +50,7 @@ const handleSubmit = e => {
 const firstData = getLocalStorageData();
 
 // Form State
-const formState = firstData
-  ? { ...baseFormState, ...firstData }
-  : { ...baseFormState };
+const formState = { ...baseFormState, ...firstData };
 
 //Set data form local storage to form after reload page
 Object.keys(formState).forEach(el => (formRef[el].value = formState[el]));
